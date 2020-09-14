@@ -18,8 +18,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', 'PostController@getPosts')->name('getPosts');
-Route::post('/post', 'PostController@createPost')->name('createPost');
-Route::get('/posts/{user_id}', 'PostController@getUserPosts')->name('getUserPosts');
+Route::post('sign-up', 'UsersController@signUp')->name('signUp');
+Route::post('login', 'UsersController@login')->name('login');
 
-Route::get('/users', 'UsersController@getUsers')->name('getUsers');
+
+Route::get('/posts', 'PostController@getPosts')->name('getPosts')->middleware('custom');
+Route::post('/post/{user_id}', 'PostController@createPost')->name('createPost')->middleware('custom');
+Route::get('/posts/{user_id}', 'PostController@getUserPosts')->name('getUserPosts')->middleware('custom');
+
+Route::get('/users', 'UsersController@getUsers')->name('getUsers')->middleware('custom');
