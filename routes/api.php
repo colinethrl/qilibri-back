@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/posts', 'PostController@getPosts')->name('getPosts');
 Route::post('/post', 'PostController@createPost')->name('createPost');
+Route::get('/posts/{user_id}', 'PostController@getUserPosts')->name('getUserPosts');
+
+Route::get('/users', 'UsersController@getUsers')->name('getUsers');
