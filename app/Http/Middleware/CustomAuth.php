@@ -58,17 +58,23 @@ class CustomAuth
 
     public function validateRoute(User $user, string $method, string $url) {        
 
-        // Only the user can fetch their own posts (published/drafts/to be published)
-        preg_match('/[\s\S]+\/posts\/([\d]+)/', $url, $getPostsMatches);
-        if ($getPostsMatches && $getPostsMatches[0]) {
-            return $user->id === intval($getPostsMatches[0]);
+        // Only the user can edit or delete a post with its user_id
+        preg_match('/[\s\S]+\/post\/([\d]+)\/([\d]+)/', $url, $editPostMatches);
+        if ($editPostMatches && $editPostMatches[2]) {
+            return $user->id === intval($editPostMatches[2]);
         }
 
+        // Only the user can create a post with its user_id
         preg_match('/[\s\S]+\/post\/([\d]+)/', $url, $createPostMatches);
-        if ($createPostMatches && $createPostMatches[0]) {
-            return $user->id === intval($createPostMatches[0]);
+        if ($createPostMatches && $createPostMatches[1]) {
+            return $user->id === intval($createPostMatches[1]);
         }
 
+        // Only the user can fetch all their own posts (published/drafts/to be published)
+        preg_match('/[\s\S]+\/posts\/([\d]+)/', $url, $getPostsMatches);
+        if ($getPostsMatches && $getPostsMatches[1]) {
+            return $user->id === intval($getPostsMatches[1]);
+        }
 
         return true;
     }

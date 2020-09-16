@@ -16,7 +16,7 @@ class UsersController extends Controller
         if ($request->email) {
             $otherUser = User::where('email',$request->email)->first();
             if ($otherUser instanceof User) {
-                return response("username_already", 400);
+                return response("This username already exists", 400);
             }
             return User::create([
                 'name' => $request->name,

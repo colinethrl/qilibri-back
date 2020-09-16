@@ -24,6 +24,8 @@ Route::post('login', 'UsersController@login')->name('login');
 
 Route::get('/posts', 'PostController@getPosts')->name('getPosts')->middleware('custom');
 Route::post('/post/{user_id}', 'PostController@createPost')->name('createPost')->middleware('custom');
+Route::post('/post/{post_id}/{user_id}', 'PostController@editPost')->name('editPost')->middleware('custom');
+Route::delete('/post/{post_id}/{user_id}', 'PostController@deletePost')->name('deletePost')->middleware('custom');
 Route::get('/posts/{user_id}', 'PostController@getUserPosts')->name('getUserPosts')->middleware('custom');
 
 Route::get('/users', 'UsersController@getUsers')->name('getUsers')->middleware('custom');
