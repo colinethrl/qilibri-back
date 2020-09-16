@@ -43,8 +43,11 @@ class CustomAuth
         $validRoute = $this->validateRoute($user, $method, $url);
         $validDigest = $this->validateDigest($passwordDigest, $nounce, $created, $user->password);
 
+        
         if ($validDigest && $validRoute && $user instanceof User) {
             return $next($request);
+        } else if (!$validRoute) {
+            return response('Forbidden', 403);
         } else {
             return response('Unauthenticated', 401);
         }

@@ -14,9 +14,13 @@ class UsersController extends Controller
 
     public function signUp(Request $request) {
         if ($request->email) {
-            $otherUser = User::where('email',$request->email)->first();
-            if ($otherUser instanceof User) {
-                return response("This username already exists", 400);
+            $userWithSameEmail = User::where('email',$request->email)->first();
+            if ($userWithSameEmail instanceof User) {
+                return response("This email is already used", 400);
+            }
+            $userWithSameName = User::where('name',$request->name)->first();
+            if ($userWithSameName instanceof User) {
+                return response("This username is already used", 400);
             }
             return User::create([
                 'name' => $request->name,
