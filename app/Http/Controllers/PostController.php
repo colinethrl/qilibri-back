@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class PostController extends Controller
 {
     public function getPosts() {
-        $posts = Post::where('published_at', '<=', date("Y-m-d"))
+        $posts = Post::where('published_at', '<=', date("Y-m-d H:i:s"))
         ->with('user')
         ->orderBy('published_at', 'desc')
         ->get();
